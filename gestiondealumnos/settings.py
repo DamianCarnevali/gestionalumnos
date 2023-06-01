@@ -61,9 +61,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'gestiondealumnos.wsgi.application'
 
 DATABASES = {
-    'default': dj_database_url.config(default='postgres://postgres:2991@127.0.0.1:5432/gestionalumnos',
-                                      conn_max_age=600,
-                                      conn_health_checks=True)
+    'default': dj_database_url.config(default='postgres://postgres:2991@localhost:5432/gestionalumnos',
+                                      conn_max_age=600)
 }
 
 AUTH_PASSWORD_VALIDATORS = [
