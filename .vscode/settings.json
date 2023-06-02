@@ -4,6 +4,9 @@
     },
     "python.formatting.provider": "none",
     "cSpell.words": [
-        "whitenoise"
+        "codigo",
+        "corsheaders",
+        "whitenoise",
+        "yasg"
     ]
 }

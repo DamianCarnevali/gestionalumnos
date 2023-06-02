@@ -2,26 +2,42 @@ from django.db import models
 
 
 class DatosEstudiantes(models.Model):
-    id = models.IntegerField(primary_key=True)
-    sexo = models.CharField(max_length=255)
-    nacionalidad = models.CharField(max_length=255)
-    secundario = models.CharField(max_length=255)
-    ano_egreso_secundario = models.IntegerField()
-    domicilio = models.CharField(max_length=255)
-    numero = models.CharField(max_length=255)
-    codigo_postal = models.CharField(max_length=255)
-    localidad = models.CharField(max_length=255)
-    partido = models.CharField(max_length=255)
-    provincia = models.CharField(max_length=255)
-    fecha_nacimiento = models.DateField()
+    sexo = models.CharField(max_length=255, verbose_name='Sexo')
+    nacionalidad = models.CharField(
+        max_length=255, verbose_name='Nacionalidad')
+    secundario = models.CharField(
+        max_length=255, verbose_name='Título otorgado por el nivel secundario')
+    ano_egreso_secundario = models.IntegerField(
+        verbose_name='Año de egreso del nivel secundario')
+    domicilio = models.CharField(max_length=255, verbose_name='Domicilio')
+    numero = models.CharField(max_length=255, verbose_name='Número')
+    codigo_postal = models.CharField(
+        max_length=255, verbose_name='Código Postal')
+    localidad = models.CharField(max_length=255, verbose_name='Localidad')
+    partido = models.CharField(max_length=255, verbose_name='Partido')
+    provincia = models.CharField(max_length=255, verbose_name='Provincia')
+    fecha_nacimiento = models.DateField(verbose_name='Fecha de nacimiento')
+
+    class Meta:
+        verbose_name = 'Dato del estudiante'
+        verbose_name_plural = 'Datos de los estudiantes'
 
 
 class Estudiantes(models.Model):
-    id = models.IntegerField(primary_key=True)
-    dni = models.CharField(max_length=255, unique=True)
-    apellido = models.CharField(max_length=255)
-    nombre = models.CharField(max_length=255)
-    celular = models.CharField(max_length=255)
-    correo = models.CharField(max_length=255)
+    dni = models.CharField(max_length=255, unique=True, verbose_name='DNI')
+    apellido = models.CharField(max_length=255, verbose_name='Apellido')
+    nombre = models.CharField(max_length=255, verbose_name='Nombre')
+    celular = models.CharField(
+        max_length=255, verbose_name='Teléfono celular')
+    correo = models.CharField(
+        max_length=255, verbose_name='Correo electrónico')
     datos_estudiantes = models.ForeignKey(
         DatosEstudiantes, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'Estudiante'
+        verbose_name_plural = 'Estudiantes'
+        ordering = ['-dni']
+
+    def __str__(self):
+        return self.apellido
