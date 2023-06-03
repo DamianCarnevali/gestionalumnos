@@ -6,6 +6,9 @@
     "cSpell.words": [
         "codigo",
         "corsheaders",
+        "documentacion",
+        "refrescartoken",
+        "simplejwt",
         "whitenoise",
         "yasg"
     ]

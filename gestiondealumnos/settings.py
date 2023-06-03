@@ -28,8 +28,17 @@ THIRD_APPS = [
     'rest_framework',
     'corsheaders',
     'drf_yasg',
+    'rest_framework_simplejwt',
 ]
 INSTALLED_APPS = BASE_APPS + LOCAL_APPS + THIRD_APPS
+
+REST_FRAMEWORK={
+    'DEFAULT_AUTHENTICATION_CLASSES':[
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ]
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

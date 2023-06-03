@@ -3,7 +3,8 @@ from django.urls import path, include
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-
+from .views_token import TokenView
+from rest_framework_simplejwt.views import TokenRefreshView
 ...
 
 schema_view = get_schema_view(
@@ -15,12 +16,14 @@ schema_view = get_schema_view(
         contact=openapi.Contact(email="contact@snippets.local"),
         license=openapi.License(name="BSD License"),
     ),
-    public=True,
-    permission_classes=(permissions.AllowAny,),
+    public=False,
+    permission_classes=(permissions.IsAuthenticated,),
 )
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('token/', TokenView.as_view()),
+    path('refrescartoken/', TokenRefreshView.as_view()),
     path('estudiantes/', include('estudiantes.urls')),
     path('documentacion/', schema_view.with_ui('swagger')),
 ]

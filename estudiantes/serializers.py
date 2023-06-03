@@ -11,3 +11,9 @@ class EstudiantesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Estudiantes
         fields = '__all__'
+
+class EstudiantesCompletosSerializer(serializers.ModelSerializer):
+    datosestudiantes=DatosEstudiantesSerializer(many=True, read_only=True)
+    class Meta:
+        model=Estudiantes
+        fields='__all__'
