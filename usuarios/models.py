@@ -1,40 +1,36 @@
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, Group, Permission
 from django.contrib.auth.hashers import make_password
 
 
-class UsuarioAdministrador(BaseUserManager):
+class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
             raise ValueError('El email debe ser proporcionado')
-
         email = self.normalize_email(email)
-        usuario = self.model(email=email, **extra_fields)
-        contraseña_encriptada = usuario.set_password(password)
-        usuario.make_password(contraseña_encriptada)
-        usuario.save(using=self._db)
-
-        return usuario
+        user = self.model(email=email, **extra_fields)
+        if password:
+            user.password = make_password(password)  # Encripta la contraseña
+        user.save(using=self._db)
+        return user
 
     def create_superuser(self, email, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
-        extra_fields['password'] = make_password(password)
         return self.create_user(email, password, **extra_fields)
 
 
-class Usuario(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(max_length=255, unique=True)
-    nombre = models.CharField(max_length=255)
-    apellido = models.CharField(max_length=255)
+class CustomUser(AbstractBaseUser, PermissionsMixin):
+    email = models.EmailField(unique=True)
+    nombre = models.CharField(max_length=30)
+    apellido = models.CharField(max_length=30)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-    groups = models.ManyToManyField(
-        Group, related_name='usuario_personalizado')
-    user_permissions = models.ManyToManyField(
-        Permission, related_name='usuario_personalizado')
-
-    objects = UsuarioAdministrador()
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['nombre', 'apellido']
+
+    objects = CustomUserManager()
+
+    def __str__(self):
+        return self.email
