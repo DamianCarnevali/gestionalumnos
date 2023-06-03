@@ -10,7 +10,8 @@ class UsuarioAdministrador(BaseUserManager):
 
         email = self.normalize_email(email)
         usuario = self.model(email=email, **extra_fields)
-        usuario.set_password(password)
+        contraseña_encriptada = usuario.set_password(password)
+        usuario.make_password(contraseña_encriptada)
         usuario.save(using=self._db)
 
         return usuario
@@ -28,9 +29,10 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     apellido = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-    groups = models.ManyToManyField(Group, related_name='usuario_personalizado')
-    user_permissions =models.ManyToManyField(Permission, related_name='usuario_personalizado')
-    
+    groups = models.ManyToManyField(
+        Group, related_name='usuario_personalizado')
+    user_permissions = models.ManyToManyField(
+        Permission, related_name='usuario_personalizado')
 
     objects = UsuarioAdministrador()
 
