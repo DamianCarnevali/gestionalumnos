@@ -3,7 +3,7 @@ from django.urls import path, include
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-...
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -23,4 +23,6 @@ urlpatterns = [
     path('estudiantes/', include('estudiantes.urls')),
     path('documentacion/', schema_view.with_ui('swagger')),
     path('usuarios/', include('usuarios.urls')),
+    path('token/', TokenObtainPairView.as_view()),
+    path('token/refrescar/', TokenRefreshView.as_view()),
 ]
