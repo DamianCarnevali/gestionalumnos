@@ -11,7 +11,7 @@ schema_view = get_schema_view(
     openapi.Info(
         title="Gestión de Alumnos API",
         default_version='v1',
-        description="Test description",
+        description="Sistema de Gestión de Alumnos para el Instituto Superior de Formación Docente y Técnica N° 239",
         terms_of_service="https://www.google.com/policies/terms/",
         contact=openapi.Contact(email="contact@snippets.local"),
         license=openapi.License(name="BSD License"),
@@ -26,4 +26,5 @@ urlpatterns = [
     path('refrescartoken/', TokenRefreshView.as_view()),
     path('estudiantes/', include('estudiantes.urls')),
     path('documentacion/', schema_view.with_ui('swagger')),
+    path('usuarios/', include('usuarios.urls')),
 ]

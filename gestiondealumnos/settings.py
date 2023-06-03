@@ -23,6 +23,7 @@ BASE_APPS = [
 ]
 LOCAL_APPS = [
     'estudiantes',
+    'usuarios',
 ]
 THIRD_APPS = [
     'rest_framework',
