@@ -25,4 +25,5 @@ urlpatterns = [
     path('usuarios/', include('usuarios.urls')),
     path('token/', TokenObtainPairView.as_view()),
     path('token/refrescar/', TokenRefreshView.as_view()),
+    path('carreras/', include('carreras.urls')),
 ]

@@ -7,8 +7,11 @@
         "codigo",
         "corsheaders",
         "documentacion",
+        "duracion",
         "refrescartoken",
+        "resolucion",
         "simplejwt",
+        "titulacion",
         "whitenoise",
         "yasg"
     ]
