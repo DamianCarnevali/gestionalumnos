@@ -19,7 +19,7 @@ class Materias(models.Model):
     es_cuatrimestral=models.BooleanField()
     tipo_campo=models.CharField(max_length=255,verbose_name='Pertenece al campo de')
     cantidad_correlativa = models.IntegerField(verbose_name='Cantidad de materias correlativas')
-    correlativas=models.ManyToManyField('self', blank=True)
+    correlativas=models.ManyToManyField('self', blank=True, symmetrical=False)
     carreras = models.ForeignKey(Carreras, on_delete=models.CASCADE)
     
     class Meta:
