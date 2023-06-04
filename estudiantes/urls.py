@@ -3,10 +3,10 @@ from rest_framework import routers
 from .views import DatosEstudiantesViewSet, EstudiantesViewSet, EstudiantesCompletosViewSet, EstudiantesMateriasViewSet
 
 routers = routers.DefaultRouter()
-routers.register(r'', EstudiantesViewSet)
-routers.register(r'', DatosEstudiantesViewSet)
-routers.register(r'', EstudiantesCompletosViewSet)
-routers.register(r'', EstudiantesMateriasViewSet)
+routers.register(r'estudiantes/', EstudiantesViewSet)
+routers.register(r'datosestudiantes/', DatosEstudiantesViewSet)
+routers.register(r'estudiantes/completos/', EstudiantesCompletosViewSet)
+routers.register(r'relacion/estudiantes/materias/', EstudiantesMateriasViewSet)
 
 urlpatterns = [
     path('', include(routers.urls))
