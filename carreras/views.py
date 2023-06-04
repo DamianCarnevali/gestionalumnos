@@ -15,31 +15,24 @@ class MateriasViewSet(viewsets.ModelViewSet):
         correlativas_data = self.request.data.get('correlativas', [])
         materias = serializer.save()
 
+        correlativas_ids = []
         for correlativa_nombre in correlativas_data:
             correlativa = Materias.objects.get(nombre=correlativa_nombre)
-            materias.correlativas.add(correlativa)
+            correlativas_ids.append(correlativa.id)
 
-        # Limpiar correlativas que no corresponden
-        for correlativa_actual in materias.correlativas.all():
-            if correlativa_actual.nombre not in correlativas_data:
-                materias.correlativas.remove(correlativa_actual)
+        materias.correlativas.set(correlativas_ids)
 
     def perform_update(self, serializer):
         correlativas_data = self.request.data.get('correlativas', [])
         materias = serializer.save()
 
-        # Limpiar correlativas existentes
-        materias.correlativas.clear()
-
-        # Agregar correlativas actualizadas
+        correlativas_ids = []
         for correlativa_nombre in correlativas_data:
             correlativa = Materias.objects.get(nombre=correlativa_nombre)
-            materias.correlativas.add(correlativa)
+            correlativas_ids.append(correlativa.id)
 
-        # Limpiar correlativas que no corresponden
-        for correlativa_actual in materias.correlativas.all():
-            if correlativa_actual.nombre not in correlativas_data:
-                materias.correlativas.remove(correlativa_actual)
+        materias.correlativas.set(correlativas_ids)
+
 
 
 @swagger_auto_schema(auto_schema=CustomAutoSchema)
