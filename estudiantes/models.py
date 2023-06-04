@@ -1,4 +1,5 @@
 from django.db import models
+from carreras.models import Materias
 
 
 class DatosEstudiantes(models.Model):
@@ -41,3 +42,12 @@ class Estudiantes(models.Model):
 
     def __str__(self):
         return self.apellido
+
+class EstudiantesMaterias(models.Model):
+    estudiantes = models.ForeignKey(Estudiantes, on_delete=models.CASCADE)
+    materias = models.ForeignKey(Materias, on_delete=models.CASCADE)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['estudiantes', 'materias'], name='unique_estudiantes_materias'),
+        ]
