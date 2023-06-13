@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.db import models
 from django.contrib.auth.hashers import make_password
-
+from rest_framework_simplejwt.tokens import RefreshToken
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -12,7 +12,7 @@ class CustomUserManager(BaseUserManager):
         if password:
             user.password = make_password(password)
         user.save(using=self._db)
-        return user
+        return user, user.id
 
     def create_superuser(self, email, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
@@ -36,3 +36,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+    
+    def get_tokens_for_user(self):
+        refresh=RefreshToken.for_user(self)
+        access_token=str(refresh.access_token)
+        refresh_token=str(refresh)
+        return access_token, refresh_token
