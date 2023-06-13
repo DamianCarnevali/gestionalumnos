@@ -5,9 +5,9 @@ from rest_framework import routers
 
 router = routers.DefaultRouter()
 router.register(r'usuarios', CustomUserViewSet, basename='Usuarios')
-router.register(r'token', CustomTokenObtainPairView, basename='Access Token')
-router.register(r'refrescar', CustomTokenRefreshView, basename='Refresh Token')
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('token/', CustomTokenObtainPairView.as_view(), name='Access Token'),
+    path('refrescar/', CustomTokenRefreshView.as_view(), name='Refresh Token'),
 ]
