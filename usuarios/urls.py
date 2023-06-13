@@ -4,9 +4,9 @@ from .views import CustomUserViewSet, CustomTokenObtainPairView, CustomTokenRefr
 from rest_framework import routers
 
 router = routers.DefaultRouter()
-router.register(r'usuarios', CustomUserViewSet)
-router.register(r'token', CustomTokenObtainPairView)
-router.register(r'refrescar', CustomTokenRefreshView)
+router.register(r'usuarios', CustomUserViewSet, basename='Usuarios')
+router.register(r'token', CustomTokenObtainPairView, basename='Access Token')
+router.register(r'refrescar', CustomTokenRefreshView, basename='Refresh Token')
 
 urlpatterns = [
     path('', include(router.urls)),
